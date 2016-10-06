@@ -1,0 +1,26 @@
+<h1 align="center">Welcome to <%= @user.username %>'s page</h1>
+
+<h3 align="center"><%= @user.username %>'s farms listing</h3>
+
+<table border=1, width=400px, align='center'>
+  <tr>
+    <th width=100px>Farm Name</th>
+    <th colspan=3, width=100px>Actions</th>
+  </tr>
+  
+  <% @user.farms.each do |farm| %>
+  <tr align=center>
+    <td><%= farm.name %></td>
+    <% if logged_in? && (current_user == farm.user || current_user.admin?) %>
+      <td width=1em><%= link_to "Edit", edit_farm_path(farm) %></td>
+      <td width=2em><%= link_to "Show Content", farm_path(farm) %></td>
+      <td width=1em><%= link_to "Delete", farm_path(farm), method: :delete, data: {confirm: "Are you sure?"} %></td>
+    <% end %>
+  </tr>
+  <% end %>
+</table>
+<br>
+<% if current_user == @user %>
+<p align="center"><%= link_to "Edit this user", edit_user_path(@user) %></p>
+<% end %>
+<p align="center"><%= link_to "Back to homepage", farms_path %></p>

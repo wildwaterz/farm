@@ -1,0 +1,23 @@
+<% if @storable.errors.any? %>
+<h2>The following errors prevented the storage from being created</h2>
+  <ul>
+    <% @storable.errors.full_messages.each do |msg| %>
+      <li> <%= msg %> </li>
+    <% end %>   
+  </ul>
+<% end %>
+
+<%= form_for [@farm, @storage, @storable] do |s| %>
+  <p>
+    <% Storable::AVAILABLE_CATEGORIES.each do |type| %>
+    <%= s.radio_button :category, type %><%= type %><br>
+    <% end %>
+  </p>
+
+  <p>
+    <%= s.submit(@storable.new_record? ? "Add Object" : "Update Object") %>
+  </p>
+
+<% end %>
+
+<%= link_to "Back to the Farm", farm_path(@farm) %>

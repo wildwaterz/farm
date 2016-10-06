@@ -1,0 +1,23 @@
+<% if @storage.errors.any? %>
+<h2>The following errors prevented the storage from being created</h2>
+  <ul>
+    <% @storage.errors.full_messages.each do |msg| %>
+      <li> <%= msg %> </li>
+    <% end %>   
+  </ul>
+<% end %>
+
+<%= form_for [@farm, @storage] do |s| %>
+  <p>
+    <% Storage::AVAILABLE_CATEGORIES.each do |type| %>
+    <%= s.radio_button :category, type %><%= type %><br>
+    <% end %>
+  </p>
+
+  <p>
+    <%= s.submit "Build new storage" %>
+  </p>
+
+<% end %>
+
+<%= link_to "Back to the Farm", farm_path(@farm) %>

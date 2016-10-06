@@ -1,0 +1,14 @@
+<h1 align="center">Users listing</h1>
+<br>
+<div align="center">
+<% @users.each do |user| %>
+  <ul id="list">
+    <li id="list"><%= link_to user.username, user_path(user) %></li>
+    <li id="list"><small><%= pluralize(user.farms.count, "farms") if user.farms %></small></li>
+    <% if logged_in? && current_user.admin? %>
+      <li><%= link_to "Delete this user", user_path(user), method: :delete, data: {confirm: "Are you sure?" } %></li>
+    <% end %>
+  </ul>
+  
+  <% end %>
+</div>

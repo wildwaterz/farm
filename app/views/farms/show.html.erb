@@ -1,0 +1,32 @@
+<h1>Showing selected farm</h1>
+<h3><strong>Name of the farm: </strong><%= @farm.name %></h3>
+<h3><strong>Created by: </strong><%= link_to @farm.user.username, user_path(@farm.user_id) %></h3>
+
+<p><strong>Listing of all storages</strong></p>
+
+<table border=1, width=400px>
+  <tr>
+    <th width=100px>Storage Category</th>
+    <th width=100px>Capacity</th>
+    <th width=100px>% full</th>
+    <th width=100px># of objects stored</th>
+    <th colspan=3, width=100px>Actions</th>
+  </tr>
+  
+  <% @farm.storages.each do |storage| %>
+  <tr align=center>
+    <td><%= storage.category %></td>
+    <td><%= storage.capacity %></td>
+    <td><%= number_to_percentage(100 * storage.storables.sum(:size)/storage.capacity.to_f, precision: 1)  %></td>
+    <td><%= storage.storables.count(:size) %></td>
+    <td width=1em><%= link_to "Edit", edit_farm_storage_path(@farm, storage) %></td>
+    <td width=2em><%= link_to "Show Content", farm_storage_path(@farm, storage) %></td>
+    <td width=1em><%= link_to "Delete", farm_storage_path(@farm, storage), method: :delete, data: {confirm: "Are you sure?"} %></td>
+  </tr>
+  <% end %>
+</table>
+
+
+<br>
+<%= link_to "Add a new storage", new_farm_storage_path(@farm) %> |
+<%= link_to "Back to Homepage", root_path %> 

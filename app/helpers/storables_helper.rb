@@ -1,0 +1,2 @@
+module StorablesHelper
+end

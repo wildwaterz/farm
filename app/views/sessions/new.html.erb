@@ -1,0 +1,23 @@
+<h1 align='center'>Log in</h1>
+<div align='center'>
+<%= form_for(:session, :html => {role: "form"}, url: login_path) do |f| %>
+  
+  <p>
+    <%= f.label :email %><br/>
+    <%= f.email_field :email, placeholder: "Enter email" %>
+  </p>
+  
+  <p>
+    <%= f.label :password %><br/>
+    <%= f.password_field :password, placeholder: "Enter password", autocomplete: "off" %>
+  </p>
+
+  <p>
+    <%= f.submit "Log in" %>
+  </p>
+
+<% end %>
+
+
+<%= link_to "Back to homepage", root_path %>
+</div>

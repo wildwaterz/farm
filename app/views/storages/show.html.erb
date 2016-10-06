@@ -1,0 +1,38 @@
+<h1>Showing contents for the selected storage</h1>
+<p><strong>Content of the storage =></strong> <%= "#{@storage.category}" %>:</p>
+
+
+<p><strong>Listing of all the content</strong></p>
+
+<table border=1, width=400px>
+  <tr>
+    <th width=100px>Object</th>
+    <th width=100px>Size</th>
+    <th width=100px>Weight (lbs)</th>
+    <th colspan=2, width=100px>Actions</th>
+  </tr>
+  
+  <% @storage.storables.each do |storable| %>
+  <tr align=center>
+    <td><%= storable.category %></td>
+    <td><%= storable.size %></td>
+    <td><%= storable.weight %></td>
+    <td width=1em><%= link_to "Edit", edit_farm_storage_storable_path(@farm, @storage, storable) %></td>
+    <td width=1em><%= link_to "Delete", farm_storage_storable_path(@farm, @storage, storable), method: :delete, data: {confirm: "Are you sure?"} %></td>
+  <% end %>
+   </tr>
+  <tr align=center>
+    <td><strong>TOTAL</strong></td>
+    <td><%= @storage.storables.sum(:size) %></td>
+    <td><%= @storage.storables.sum(:weight) %></td>
+    <td></td>
+    <td></td>
+  </tr>
+ 
+</table>
+
+<br>
+
+
+<%= link_to "Add a new object in this storage", new_farm_storage_storable_path(@farm, @storage) %> |
+<%= link_to "Back to #{@farm.name}'s farm", farm_path(@farm) %> 
